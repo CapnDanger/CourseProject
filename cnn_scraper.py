@@ -1,17 +1,9 @@
-#from bs4 import BeautifulSoup
-#from selenium import webdriver
-#from selenium.webdriver.chrome.options import Options
 import requests
 import json
 import nltk
 
-# def phrase(text):
-#     phrase_list = []
-#     sent_list = nltk.sent_tokenize(text) #tokenize text into sentences
-#     for sent in sent_list: #split each sentence into
-#         ph = sent.split(', ')
-#         phrase_list.append(ph)
-#     print(phrase_list)
+#CNN has an API that I was able to use, so there is no need to incorporate Beautiful Soup or Selenium. 
+
 
 def scrape(url):
     with requests.Session() as req:
