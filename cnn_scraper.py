@@ -2,9 +2,7 @@ import requests
 import json
 import nltk
 
-#CNN has an API that I was able to use, so there is no need to incorporate Beautiful Soup or Selenium. 
-
-
+#CNN has an API that I was able to use, so there is no need to incorporate Beautiful Soup or Selenium.
 def scrape(url):
     with requests.Session() as req:
         with open('urls.csv', 'w') as db:
@@ -55,5 +53,5 @@ def scrape(url):
                         for sent in sent_list:
                             f.write(sent + "\n")
 
-
+#main scrape
 scrape("https://search.api.cnn.io/content?q=election&type=article&sort=newest&category=us,politics&size=100&from={}")
