@@ -7,7 +7,6 @@ import nltk
 import re
 import urllib
 import time
-import csv
 
 #create a webdriver object and set options for headless browsing
 options = Options()
