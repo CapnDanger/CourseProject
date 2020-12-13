@@ -68,37 +68,18 @@ def scrape_links(dir_url,driver):
 
 
 def scrape_article(url):
-    ct = 0
     soup = get_js_soup(url, driver)
     body = soup.find_all('p', class_='Paragraph-paragraph-2Bgue ArticleBody-para-TD_9x')
+    txt = ''
 
-    if len(body) == 0:
-        with open('sent_counts.csv', 'a+') as c:
-             c.write(str(ct) + "\n")
-        return
-    else:
-        for p in body:
-            try:
-                txt = process_article(p.string)
-                sent_list = nltk.sent_tokenize(txt)
+    for p in body:
+        try:
+            txt += process_article(p.string)
+        except:
+            continue
 
-                #tokenize article into sentences
-                for sent in sent_list: #Remove short sentences (4 words or fewer)
-                    if sent.count(' ') <= 3:
-                        sent_list.remove(sent)
-
-                ct += len(sent_list)
-
-                with open('reuters_body.txt', 'a+') as t:
-                    for sent in sent_list:
-                        t.write(sent + "\n")
-
-            except:
-                continue
-
-        with open('sent_counts.csv', 'a+') as c:
-            c.write(str(ct) + "\n")
-
+    with open('reuters_body.txt', 'a+') as t:
+        t.write(txt.replace("\n", '') + "\n")
 
 #main scrape
 
