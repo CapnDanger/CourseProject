@@ -22,9 +22,9 @@ for d in corpus:
     trump = 0
     biden = 0
 
-    if ('Trump' in d):
+    if ('Trump ' in d):
         targets.append('Trump')
-    if ('Biden' in d):
+    if ('Biden ' in d):
         targets.append('Biden')
 
     if (len(targets) > 0):
@@ -42,8 +42,9 @@ for d in corpus:
 
     trump_scores.append(trump)
     biden_scores.append(biden)
+    #print(len(trump_scores))
     if(len(trump_scores) % 100 == 0):
-        print(len(trump_scores))
+         print(len(trump_scores))
 
 with open('reuters_scores.csv', 'w') as o:
     for i in range(len(trump_scores)):

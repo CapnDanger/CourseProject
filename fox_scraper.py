@@ -46,9 +46,9 @@ def scrape_links(url):
             output_line.append('category')
             output_line.append('headline')
             output_line.append('url')
-            output_line.append('sentences')
+            #output_line.append('sentences')
             #db.write(','.join(map(str, output_line)) + "\n")
-            for i in range(6106, 8000, 100):
+            for i in range(0, 1):
                 r = req.get(url.format(i)).json()
                 for a in r:
                     output_line = []
@@ -68,9 +68,20 @@ def scrape_links(url):
                     output_line.append(article_link)
                     url_list.append(article_link)
 
-                    output_line.append('0') #will be manually updated with sentences
+                    #output_line.append('0') #will be manually updated with sentences
 
-                    #db.write(','.join(map(str, output_line)) + "\n")
+                    db.write(','.join(map(str, output_line)) + "\n")
+    return url_list
+
+#had to re-scrape articles - will revisit articles from the existing file
+def revisit_links():
+    url_list = [] #for easier access later when obtaining content
+    with open('fox_links.txt', 'r') as f:
+        url_list = f.readlines()
+
+    for i in url_list:
+        i = i.strip()
+
     return url_list
 
 def scrape_article(url):
@@ -86,29 +97,28 @@ def scrape_article(url):
             if not(clean.isupper()): #filter out spam - all caps links to other articles
                 article_text += clean + ' '
     article_text = process_article(article_text)
+    article_text = article_text.replace("\n", ' ')
 
     #tokenize article into sentences
-    sent_list = nltk.sent_tokenize(article_text)
-    for sent in sent_list: #Remove short sentences (4 words or fewer)
-        if sent.count(' ') <= 3:
-            sent_list.remove(sent)
-
-    ct = len(sent_list) #number of sentences
+    # sent_list = nltk.sent_tokenize(article_text)
+    # for sent in sent_list: #Remove short sentences (4 words or fewer)
+    #     if sent.count(' ') <= 3:
+    #         sent_list.remove(sent)
+    #
+    # ct = len(sent_list) #number of sentences
 
     with open('fox_body.txt', 'a+') as t:
-        for sent in sent_list:
-            t.write(sent + "\n")
+        t.write(article_text + "\n")
 
-    with open('sent_counts.csv', 'a+') as c:
-        c.write(str(ct) + "\n")
 
 
 #main scrape
 
-fox_links = scrape_links("https://www.foxnews.com/api/article-search?isTag=true&searchSelected=fox-news%2Fpolitics%2F2020-presidential-election&size=100&offset={}")
+#fox_links = scrape_links("https://www.foxnews.com/api/article-search?isTag=true&searchSelected=fox-news%2Fpolitics%2F2020-presidential-election&size=100&offset={}")
+fox_links = revisit_links()
 print(len(fox_links))
 
-for i in range(len(fox_links)):
+for i in range(2316, len(fox_links)):
     scrape_article(fox_links[i])
 
 driver.close()
