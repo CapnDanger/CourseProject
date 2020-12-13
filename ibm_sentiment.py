@@ -11,7 +11,7 @@ nlu.set_service_url('https://api.us-south.natural-language-understanding.watson.
 trump_scores = []
 biden_scores = []
 
-with open('reuters_body.txt', 'r', encoding="utf-8") as f:
+with open('fox_body.txt', 'r', encoding="utf-8") as f:
     corpus = f.readlines()
 
 print(len(corpus))
@@ -42,11 +42,10 @@ for d in corpus:
 
     trump_scores.append(trump)
     biden_scores.append(biden)
-    #print(len(trump_scores))
     if(len(trump_scores) % 100 == 0):
-         print(len(trump_scores))
+        print(len(trump_scores))
 
-with open('reuters_scores.csv', 'w') as o:
+with open('fox_scores.csv', 'w') as o:
     for i in range(len(trump_scores)):
         output_line = []
         output_line.append(trump_scores[i])
