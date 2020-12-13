@@ -41,13 +41,6 @@ def scrape_links(url):
     url_list = [] #for easier access later when obtaining content
     with requests.Session() as req:
         with open('fox_urls.csv', 'r') as db:
-            output_line = []
-            output_line.append('publishDate')
-            output_line.append('category')
-            output_line.append('headline')
-            output_line.append('url')
-            #output_line.append('sentences')
-            #db.write(','.join(map(str, output_line)) + "\n")
             for i in range(0, 1):
                 r = req.get(url.format(i)).json()
                 for a in r:
@@ -67,8 +60,6 @@ def scrape_links(url):
                     article_link = 'https://www.foxnews.com' + a['url']
                     output_line.append(article_link)
                     url_list.append(article_link)
-
-                    #output_line.append('0') #will be manually updated with sentences
 
                     db.write(','.join(map(str, output_line)) + "\n")
     return url_list
@@ -99,14 +90,6 @@ def scrape_article(url):
     article_text = process_article(article_text)
     article_text = article_text.replace("\n", ' ')
 
-    #tokenize article into sentences
-    # sent_list = nltk.sent_tokenize(article_text)
-    # for sent in sent_list: #Remove short sentences (4 words or fewer)
-    #     if sent.count(' ') <= 3:
-    #         sent_list.remove(sent)
-    #
-    # ct = len(sent_list) #number of sentences
-
     with open('fox_body.txt', 'a+') as t:
         t.write(article_text + "\n")
 
@@ -118,8 +101,7 @@ def scrape_article(url):
 fox_links = revisit_links()
 print(len(fox_links))
 
-for i in range(2316, len(fox_links)):
+for i in range(len(fox_links)):
     scrape_article(fox_links[i])
 
 driver.close()
-#print(fox_links[0])

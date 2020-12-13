@@ -22,6 +22,7 @@ for d in corpus:
     trump = 0
     biden = 0
 
+    #make sure keywords are in doc
     if ('Trump ' in d):
         targets.append('Trump')
     if ('Biden ' in d):
@@ -33,7 +34,7 @@ for d in corpus:
             features = Features(sentiment = SentimentOptions(targets = targets))).get_result()
 
         res = response["sentiment"]["targets"]
-
+        #pull sentiment analysis scores
         for i in res:
             if (i["text"] == "Trump"):
                 trump = i["score"]

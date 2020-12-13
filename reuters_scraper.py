@@ -103,4 +103,3 @@ for i in range(len(reuters_links)):
     scrape_article(reuters_links[i])
 
 driver.close()
-#print(fox_links[0])
