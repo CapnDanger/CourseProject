@@ -3,10 +3,10 @@ from ibm_watson import NaturalLanguageUnderstandingV1
 from ibm_cloud_sdk_core.authenticators import IAMAuthenticator
 from ibm_watson.natural_language_understanding_v1 import Features, SentimentOptions
 
-authenticator = IAMAuthenticator('5iBHhYb2Ni_ezxGWzivM_2sA1eCDjV-jDeEC8CNN9j8z')
+authenticator = IAMAuthenticator('{key}')
 nlu = NaturalLanguageUnderstandingV1(version='2020-08-01', authenticator=authenticator)
 
-nlu.set_service_url('https://api.us-south.natural-language-understanding.watson.cloud.ibm.com/instances/c3a1ef64-02ae-47bb-ace5-2c8716994177/v1/analyze?version=2019-07-12')
+nlu.set_service_url('{url}')
 
 trump_scores = []
 biden_scores = []
