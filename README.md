@@ -23,3 +23,6 @@ The IBM Watson Natural Language Understanding API documentation can be found at 
 
 # Other attributions
 Select portions of the scraper codes have been adapted from MP2.1. 
+
+# Video Demonstration
+https://mediaspace.illinois.edu/media/t/1_ksj5ytyq
